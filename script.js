@@ -1,33 +1,46 @@
 /**
- * Toggles the display of an individual team member's bio
- * @param {string} bioId - The ID of the bio section to show or hide
+ * Toggles the visibility of an individual team member's bio and updates button text.
+ * @param {string} bioId - The ID of the bio container element
+ * @param {HTMLElement} [btnEl] - Optional button element that triggered the toggle
  */
-function toggleBio(bioId) {
+function toggleBio(bioId, btnEl) {
     const bio = document.getElementById(bioId);
-    // Toggle between showing and hiding the bio section
-    if (bio.style.display === "none" || bio.style.display === "") {
-        bio.style.display = "block";
-    } else {
-        bio.style.display = "none";
+    if (!bio) return;
+
+    const isOpen = bio.classList.toggle("is-open");
+
+    if (btnEl) {
+        btnEl.textContent = isOpen ? "Hide Bio" : "Show Bio";
+        btnEl.setAttribute("aria-expanded", String(isOpen));
     }
 }
 
 /**
- * Shows the specified section ('bios' or 'vision') and hides the other
- * @param {string} sectionId - The ID of the section to display
+ * Switches between the 'bios' and 'vision' sections with a subtle fade.
+ * @param {string} sectionId - 'bios' or 'vision'
+ * @param {HTMLElement} [clickedBtn] - Optional nav button clicked
  */
-function showSection(sectionId) {
+function showSection(sectionId, clickedBtn) {
     const biosSection = document.getElementById("bios");
     const visionSection = document.getElementById("vision");
+    const navButtons = document.querySelectorAll(".nav-btn");
 
-    // Display the bios section and hide the vision section
-    if (sectionId === "bios") {
-        biosSection.style.display = "flex";
-        visionSection.style.display = "none";
+    navButtons.forEach((btn) => btn.classList.remove("active"));
+    if (clickedBtn) {
+        clickedBtn.classList.add("active");
     }
-    // Display the vision section and hide the bios section
-    else if (sectionId === "vision") {
+
+    if (sectionId === "bios") {
+        visionSection.style.display = "none";
+        visionSection.classList.remove("is-visible");
+
+        biosSection.style.display = "flex";
+        requestAnimationFrame(() => biosSection.classList.add("is-visible"));
+    } else if (sectionId === "vision") {
         biosSection.style.display = "none";
+        biosSection.classList.remove("is-visible");
+
         visionSection.style.display = "block";
+        requestAnimationFrame(() => visionSection.classList.add("is-visible"));
     }
 }

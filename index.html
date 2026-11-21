@@ -4,52 +4,93 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Team Bio</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-<header>
-    <h1>Meet Our Team</h1>
-    <!-- Example team logo -->
-    <img src="img/team-logo.png" alt="Team Logo" class="team-logo">
+<header class="site-header">
+    <div class="header-inner">
+        <img src="img/Dev.png" alt="Team Logo" class="team-logo">
+        <div>
+            <p class="eyebrow">DevLab</p>
+            <h1>Meet Our Team</h1>
+        </div>
+    </div>
 
-    <!-- Navigation menu to switch between sections -->
-    <nav>
-        <button onclick="showSection('bios')">Team Bios</button>
-        <button onclick="showSection('vision')">Team Vision</button>
+    <nav aria-label="Primary Navigation">
+        <button type="button" class="nav-btn active" onclick="showSection('bios', this)">Team Bios</button>
+        <button type="button" class="nav-btn" onclick="showSection('vision', this)">Team Vision</button>
     </nav>
 </header>
 
-<!-- Team bios section (default section) -->
-<div id="bios" class="container">
-    <!-- Each card represents an individual team member -->
-    <div class="card">
-        <h2>John Doe</h2>
-        <p>Frontend Developer</p>
-        <button onclick="toggleBio('bio1')">Show Bio</button>
-        <p id="bio1" class="bio">John is a skilled frontend developer with 5 years of experience in creating responsive web applications.</p>
-    </div>
-    <div class="card">
-        <h2>Jane Smith</h2>
-        <p>Backend Developer</p>
-        <button onclick="toggleBio('bio2')">Show Bio</button>
-        <p id="bio2" class="bio">Jane is a backend developer specializing in server-side logic and database management.</p>
-    </div>
-    <div class="card">
-        <h2>Emily Johnson</h2>
-        <p>UI/UX Designer</p>
-        <button onclick="toggleBio('bio3')">Show Bio</button>
-        <p id="bio3" class="bio">Emily is a UI/UX designer with a passion for creating user-friendly interfaces.</p>
-    </div>
-</div>
+<main>
+    <!-- Team bios section (default section) -->
+    <section id="bios" class="container section-panel is-visible">
+        <article class="card">
+            <div class="card-header">
+                <h2>John Doe</h2>
+                <span class="role-tag">Frontend Developer</span>
+            </div>
+            <button type="button" class="toggle-btn" onclick="toggleBio('bio1', this)">Show Bio</button>
+            <div id="bio1" class="bio">
+                <p>John is a skilled frontend developer with 5 years of experience in creating responsive web applications.</p>
+                <!-- Add moodboard images/links here as your team customizes -->
+            </div>
+        </article>
 
-<!-- Team vision/mission statement section (hidden by default) -->
-<div id="vision" class="container" style="display: none;">
-    <h2>Our Mission Statement</h2>
-    <p>We strive to create a collaborative, inclusive, and innovative environment where team members feel empowered to push boundaries and achieve excellence in their craft. Our mission is to deliver high-quality solutions that meet and exceed our clients' expectations.</p>
-</div>
+        <article class="card">
+            <img src="img/noah-avatar.png" alt="Avatar of Noah Tennant" class="avatar">
+            <div class="card-header">
+                <h2>Noah Tennant</h2>
+                <span class="role-tag">Backend Developer</span>
+            </div>
+            <button type="button" class="toggle-btn" onclick="toggleBio('bio2', this)">Show Bio</button>
+            <div id="bio2" class="bio">
+                <p>Noah is a backend developer specializing in server-side logic, APIs, and database management.</p>
+                <div class="moodboard">
+                    <p class="moodboard-label">CS Moodboard &amp; Links</p>
+                    <div class="moodboard-links">
+                        <a href="https://github.com/ntenn58" target="_blank" rel="noopener noreferrer">GitHub</a>
+                        <a href="https://www.linkedin.com/in/noah-tennant-82449a365/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    </div>
+                </div>
+            </div>
+        </article>
 
-<script src="script.js"></script> <!-- Link to external JavaScript file -->
+        <article class="card">
+            <div class="card-header">
+                <h2>Emily Johnson</h2>
+                <span class="role-tag">UI/UX Designer</span>
+            </div>
+            <button type="button" class="toggle-btn" onclick="toggleBio('bio3', this)">Show Bio</button>
+            <div id="bio3" class="bio">
+                <p>Emily is a UI/UX designer with a passion for creating user-friendly interfaces.</p>
+                <!-- Add moodboard images/links here as your team customizes -->
+            </div>
+        </article>
+    </section>
+
+    <!-- Team vision/mission statement & rules section -->
+    <section id="vision" class="container section-panel vision-card" style="display: none;">
+        <h2>Our Mission Statement</h2>
+        <p class="mission-lead">
+            As computer scientists, we turn complex problems into clean, dependable solutions through modular thinking,
+            clear communication, and practical engineering. We value accountability, curiosity, and mutual support across
+            every stage of our work.
+        </p>
+
+        <div class="rules-block">
+            <h3>Team Rules</h3>
+            <ul class="rules-list">
+                <li>Communicate early if you hit a blocker or need schedule flexibility.</li>
+                <li>Keep commits and changes focused, readable, and tested before pushing.</li>
+                <li>Treat every teammate's ideas, time, and contributions with respect.</li>
+            </ul>
+        </div>
+    </section>
+</main>
+
+<script src="script.js"></script>
 
 </body>
 </html>

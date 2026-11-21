@@ -1,90 +1,345 @@
-/* General page styling */
+/* ==========================================================================
+   Theme Variables & Base Reset
+   ========================================================================== */
+:root {
+    --bg-page: #f5f7fa;
+    --bg-surface: #ffffff;
+    --bg-subtle: #eef2f6;
+    --header-bg: #1e293b;
+    --header-surface: #273549;
+    --text-main: #1e293b;
+    --text-muted: #526071;
+    --accent: #2563eb;
+    --accent-hover: #1d4ed8;
+    --border-subtle: #e2e8f0;
+    --shadow-sm: 0 4px 14px rgba(15, 23, 42, 0.05);
+    --shadow-md: 0 10px 24px rgba(15, 23, 42, 0.08);
+    --ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-main);
+    line-height: 1.6;
     margin: 0;
     padding: 0;
 }
 
-/* Header section styling */
-header {
-    background: #333;
-    color: #fff;
-    padding: 10px 0;
+/* ==========================================================================
+   Header & Navigation
+   ========================================================================== */
+.site-header {
+    background: linear-gradient(180deg, var(--header-bg) 0%, var(--header-surface) 100%);
+    color: #ffffff;
+    padding: 28px 20px 24px;
     text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
-/* Styling for team logo image */
+.header-inner {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 18px;
+    flex-wrap: wrap;
+}
+
+.eyebrow {
+    margin: 0 0 4px;
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #93c5fd;
+    font-weight: 600;
+}
+
+.site-header h1 {
+    margin: 0;
+    font-size: 1.85rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
 .team-logo {
-    width: 150px; /* Adjust the size as needed */
-    margin-top: 10px;
+    width: 98px;
+    height: 98px;
+    object-fit: cover;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    transition: transform 0.25s var(--ease-smooth);
 }
 
-/* Menu button styling */
+.team-logo:hover {
+    transform: translateY(-2px);
+}
+
 header nav {
-    margin-top: 10px;
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
 }
 
-header nav button {
-    background: #007BFF;
-    color: white;
+/* ==========================================================================
+   Buttons & Subtle Interactive States
+   ========================================================================== */
+button {
+    font-family: inherit;
+    font-size: 0.92rem;
+    font-weight: 600;
     border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
+    border-radius: 8px;
+    padding: 9px 16px;
     cursor: pointer;
-    margin: 0 5px;
+    transition: background-color 0.2s ease, transform 0.2s var(--ease-smooth), box-shadow 0.2s ease;
 }
 
-header nav button:hover {
-    background: #0056b3;
+.nav-btn {
+    background: rgba(255, 255, 255, 0.1);
+    color: #e2e8f0;
+    border: 1px solid rgba(255, 255, 255, 0.14);
 }
 
-/* Flex container for team bios and vision sections */
+.nav-btn:hover {
+    background: rgba(255, 255, 255, 0.18);
+    transform: translateY(-1px);
+}
+
+.nav-btn.active {
+    background: var(--accent);
+    color: #ffffff;
+    border-color: transparent;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.35);
+}
+
+.toggle-btn {
+    background: var(--accent);
+    color: #ffffff;
+    margin-top: 12px;
+}
+
+.toggle-btn:hover {
+    background: var(--accent-hover);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(37, 99, 235, 0.22);
+}
+
+.toggle-btn:active,
+.nav-btn:active {
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   Layout & Subtle Section Transitions
+   ========================================================================== */
 .container {
-    width: 80%;
-    margin: 20px auto;
+    width: min(1040px, 90%);
+    margin: 32px auto 48px;
+}
+
+#bios.container {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
+    gap: 20px;
+    align-items: flex-start;
 }
 
-/* Card styling for individual team bios */
+.section-panel {
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.28s var(--ease-smooth), transform 0.28s var(--ease-smooth);
+}
+
+.section-panel.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ==========================================================================
+   Member Avatar Styling
+   ========================================================================== */
+.avatar {
+    display: block;
+    width: 96px;
+    height: 96px;
+    margin: 0 auto 14px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center top;
+    background-color: var(--bg-subtle);
+    border: 2px solid var(--border-subtle);
+    box-shadow: 0 3px 10px rgba(15, 23, 42, 0.08);
+    transition: transform 0.25s var(--ease-smooth), border-color 0.25s ease;
+}
+
+.card:hover .avatar {
+    transform: translateY(-2px);
+    border-color: #cbd5e1;
+}
+
+/* ==========================================================================
+   Bio Cards & Smooth Bio Reveal
+   ========================================================================== */
 .card {
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    margin: 10px;
-    padding: 20px;
-    flex: 1 1 calc(30% - 40px);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    padding: 24px 22px;
+    flex: 1 1 280px;
     text-align: center;
-    transition: transform 0.2s;
+    transition: transform 0.25s var(--ease-smooth), box-shadow 0.25s var(--ease-smooth), border-color 0.25s ease;
 }
 
 .card:hover {
-    transform: scale(1.05);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: #cbd5e1;
 }
 
-h2 {
-    margin: 0 0 10px;
+.card h2 {
+    margin: 0 0 6px;
+    font-size: 1.2rem;
+    letter-spacing: -0.01em;
 }
 
-/* Initially hide bio details */
+.role-tag {
+    display: inline-block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: #eff6ff;
+    padding: 3px 10px;
+    border-radius: 999px;
+}
+
+/* Smooth collapse/expand using CSS grid rows */
 .bio {
-    display: none;
-    margin-top: 10px;
-    color: #555;
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    margin-top: 0;
+    transition: grid-template-rows 0.3s var(--ease-smooth), opacity 0.25s ease, margin-top 0.3s var(--ease-smooth);
 }
 
-/* Button styling */
-button {
-    background: #007BFF;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
+.bio > * {
+    overflow: hidden;
 }
 
-button:hover {
-    background: #0056b3;
+.bio.is-open {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    margin-top: 14px;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.bio p {
+    margin: 0;
+    font-size: 0.94rem;
+    color: var(--text-muted);
+    text-align: left;
+}
+
+.moodboard {
+    margin-top: 12px;
+    padding: 10px 12px;
+    background: var(--bg-subtle);
+    border-radius: 8px;
+    text-align: left;
+}
+
+.moodboard-label {
+    font-size: 0.78rem !important;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-main) !important;
+    margin-bottom: 6px !important;
+}
+
+.moodboard-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+}
+
+.moodboard-links a {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.moodboard-links a:hover {
+    text-decoration: underline;
+}
+
+.moodboard-links a:hover {
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   Mission Statement & Team Rules Section
+   ========================================================================== */
+.vision-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-subtle);
+    border-left: 4px solid var(--accent);
+    border-radius: 12px;
+    box-shadow: var(--shadow-sm);
+    padding: 28px 32px;
+}
+
+.vision-card h2 {
+    margin: 0 0 10px;
+    font-size: 1.45rem;
+    letter-spacing: -0.015em;
+}
+
+.mission-lead {
+    margin: 0;
+    font-size: 1.02rem;
+    color: var(--text-muted);
+    max-width: 72ch;
+}
+
+.rules-block {
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.rules-block h3 {
+    margin: 0 0 10px;
+    font-size: 1.05rem;
+    color: var(--text-main);
+}
+
+.rules-list {
+    margin: 0;
+    padding-left: 20px;
+    color: var(--text-muted);
+}
+
+.rules-list li {
+    margin-bottom: 6px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
 }
